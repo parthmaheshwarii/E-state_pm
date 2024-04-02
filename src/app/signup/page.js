@@ -28,27 +28,25 @@ const Signup = () => {
   const { signUp } = useAuth();
   const onSubmit = (values) => {
     const { email, password } = values;
-    signUp(email, password)
-      .then((authUser) => {
-        console.log(authUser);
-        console.log("Success. The user is created in Firebase");
+    try {
+      signUp(email, password)
+      console.log("Success. The user is created in Firebase");
         router.push("/");
-      })
-      .catch((error) => {
-        // An error occurred. Set error message to be displayed to user
-        if (error.message.includes("email-already")) {
-          toast.error("Email Already In Use", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        }
-      });
+    } catch (error) {
+       // An error occurred. Set error message to be displayed to user
+       if (error.message.includes("email-already")) {
+        toast.error("Email Already In Use", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
   };
 
   return (

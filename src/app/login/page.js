@@ -64,9 +64,9 @@ const Login = () => {
   });
   const onSubmit = (values) => {
     const { email_field, password_field } = values;
-    login(email_field, password_field)
-      .then((userCredential) => {
-        router.push("/");
+    try {
+      login(email_field, password_field)
+      router.push("/");
         toast.success("Logged in Successfully", {
           position: "top-right",
           autoClose: 3000,
@@ -77,21 +77,20 @@ const Login = () => {
           progress: undefined,
           theme: "light",
         });
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        toast.error(error.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      });
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }); 
+    }
   };
   return (
     <div className="form_container">
