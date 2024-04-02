@@ -1,0 +1,164 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+
+
+
+
+
+.hero {
+    background-image: url('/hero_image.jpg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.hero .cta-button {
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.hero .cta-button:hover {
+    background-color: #0056b3;
+}
+
+.services {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.services .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.services h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.service {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+.service .item-service {
+    flex: 1;
+    padding: 20px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+}
+
+.service h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.service p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+.service-button {
+    background-color: #0e0f0f;
+    color: white;
+    border-radius: 5%;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.service-button:hover {
+    background-color: #000000;
+}
+
+
+
+.land-and-building,
+.booking-status,
+.damage-status {
+    text-align: center;
+}
+
+.land-and-building h2,
+.booking-status h2,
+.damage-status h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.land-and-building p,
+.booking-status p,
+.damage-status p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.gallery {
+    padding: 80px 0;
+    text-align: center
+}
+
+.gallery h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.gallery-filters {
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filter-btn.active {
+    background-color: #0056b3;
+}
+
+.gallery-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 60px;
+}
+
+.gallery-images .image img {
+    width: 100%;
+    height: auto;
+}
+
+   
+
+
