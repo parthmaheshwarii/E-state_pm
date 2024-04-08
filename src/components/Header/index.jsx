@@ -1,8 +1,16 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import "./index.css";
+import { useAuth } from "@/contexts/AuthContext";
+import { auth } from "@/firebase";
 const Header = () => {
+  const { signOut, getUser } = useAuth();
+  useEffect(() => {
+    console.log("currentUser header", auth.currentUser);
+  }, []);
+  console.log("currentUser", getUser());
   return (
     <header>
       <div className="container">
@@ -34,12 +42,23 @@ const Header = () => {
             <li>
               <Link href="/contact">Contact Us</Link>
             </li>
-            <li>
-              <Link href="/login">Login</Link>
-            </li>
-            <li>
-              <Link href="/signup">Signup</Link>
-            </li>
+            {getUser() ? (
+              <li
+                onClick={signOut}
+                className="hover:text-[#007bff] cursor-pointer transition-colors "
+              >
+                Sign Out
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link href="/login">Login</Link>
+                </li>
+                <li>
+                  <Link href="/signup">Signup</Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
         <Link href="/dashboard" className="cta-button">

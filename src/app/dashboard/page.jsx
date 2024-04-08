@@ -1,9 +1,22 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { Tab } from "@headlessui/react";
+import React, { useEffect, useState } from "react";
+import { Disclosure, Tab } from "@headlessui/react";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+} from "firebase/firestore";
+import { db } from "@/firebase";
+import { useAuth } from "@/contexts/AuthContext";
+import { useData } from "@/contexts/DataContext";
 const page = () => {
+  const { bookings, repairs } = useData();
+
   return (
     <div className="bg-orange-100 min-h-screen">
       {/* <div className="fixed bg-white text-blue-800 px-10 py-1 z-10 w-full">
@@ -187,16 +200,167 @@ const page = () => {
             </div>
           </Tab.Panel>
           <Tab.Panel className="w-10/12">
-            <div className="flex flex-row h-64 mt-6">
+            <div className="flex flex-row mt-6">
               <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
-                a
+                <ul className="bg-white shadow overflow-hidden sm:rounded-md max-w-sm mx-auto mt-16">
+                  {bookings.map((b, i) => (
+                    <Disclosure as="li" key={i}>
+                      {({ open }) => (
+                        <>
+                          <Disclosure.Button
+                            as="div"
+                            className="px-4 py-5 sm:px-6"
+                          >
+                            <div className="flex items-center justify-between">
+                              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                                {b.name}
+                              </h3>
+                              <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                                {b.bookingBy}
+                              </p>
+                            </div>
+                            <div className="mt-4 flex items-center justify-between">
+                              <p className="text-sm font-medium text-gray-500">
+                                Status:{" "}
+                                <span className="text-green-600">
+                                  {b.status}
+                                </span>
+                              </p>
+                              <span
+                                className={`${
+                                  open ? "rotate-180 transform" : ""
+                                } h-5 w-5 text-purple-500 material-symbols-outlined float-right`}
+                              >
+                                keyboard_arrow_up
+                              </span>
+                            </div>
+                          </Disclosure.Button>
+                          <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+                            {b.message}
+                          </Disclosure.Panel>
+                        </>
+                      )}
+                    </Disclosure>
+                  ))}
+
+                  {/* <Disclosure as={"li"} className="border-t border-gray-200">
+                    {({ open }) => (
+                      <>
+                        <Disclosure.Button
+                          as="div"
+                          className="px-4 py-5 sm:px-6"
+                        >
+                          <div className="flex items-center justify-between">
+                            <h3 className="text-lg leading-6 font-medium text-gray-900">
+                              Item 2
+                            </h3>
+                            <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                              Description for Item 2
+                            </p>
+                          </div>
+                          <div className="mt-4 flex items-center justify-between">
+                            <p className="text-sm font-medium text-gray-500">
+                              Status:{" "}
+                              <span className="text-red-600">Inactive</span>
+                            </p>
+                            <span
+                              className={`${
+                                open ? "rotate-180 transform" : ""
+                              } h-5 w-5 text-purple-500 material-symbols-outlined float-right`}
+                            >
+                              keyboard_arrow_up
+                            </span>
+                          </div>
+                        </Disclosure.Button>
+                        <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+                          If you're unhappy with your purchase for any reason,
+                          email us within 90 days and we'll refund you in full,
+                          no questions asked.
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                  <Disclosure as="li" className="border-t border-gray-200">
+                    {({ open }) => (
+                      <>
+                        <Disclosure.Button
+                          as="div"
+                          className="px-4 py-5 sm:px-6"
+                        >
+                          <div className="flex items-center justify-between">
+                            <h3 className="text-lg leading-6 font-medium text-gray-900">
+                              Item 3
+                            </h3>
+                            <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                              Description for Item 3
+                            </p>
+                          </div>
+                          <div className="mt-4 flex items-center justify-between">
+                            <p className="text-sm font-medium text-gray-500">
+                              Status:{" "}
+                              <span className="text-yellow-600">Pending</span>
+                            </p>
+                            <span
+                              className={`${
+                                open ? "rotate-180 transform" : ""
+                              } h-5 w-5 text-purple-500 material-symbols-outlined float-right`}
+                            >
+                              keyboard_arrow_up
+                            </span>
+                          </div>
+                        </Disclosure.Button>
+                        <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+                          If you're unhappy with your purchase for any reason,
+                          email us within 90 days and we'll refund you in full,
+                          no questions asked.
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure> */}
+                </ul>
               </div>
             </div>
           </Tab.Panel>
           <Tab.Panel className="w-10/12">
             <div className="flex flex-row h-64 mt-6">
               <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
-                a
+                {repairs.map((b, i) => (
+                  <Disclosure as="li" key={i}>
+                    {({ open }) => (
+                      <>
+                        <Disclosure.Button
+                          as="div"
+                          className="px-4 py-5 sm:px-6"
+                        >
+                          <div className="flex items-center justify-between">
+                            <h3 className="text-lg leading-6 font-medium text-gray-900">
+                              {b.name}
+                            </h3>
+                            <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                              {b.requestBy}
+                            </p>
+                          </div>
+                          <div className="mt-4 flex items-center justify-between">
+                            <p className="text-sm font-medium text-gray-500">
+                              Status:{" "}
+                              <span className="text-green-600">{b.status}</span>
+                            </p>
+                            <span
+                              className={`${
+                                open ? "rotate-180 transform" : ""
+                              } h-5 w-5 text-purple-500 material-symbols-outlined float-right`}
+                            >
+                              keyboard_arrow_up
+                            </span>
+                          </div>
+                        </Disclosure.Button>
+                        <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+                          {b.message}
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ))}
               </div>
             </div>
           </Tab.Panel>

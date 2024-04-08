@@ -15,26 +15,24 @@ const Signup = () => {
   const router = useRouter();
   const initialValues = {
     name: "",
-    username: "",
     email: "",
     password: "",
   };
   const validationSchema = Yup.object({
-    username: Yup.string().required("You must enter a username"),
     name: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string().required("Required"),
   });
   const { signUp } = useAuth();
-  const onSubmit = (values) => {
-    const { email, password } = values;
+  const onSubmit = async (values) => {
+    const { email, password, name } = values;
     try {
-      signUp(email, password)
-      console.log("Success. The user is created in Firebase");
-        router.push("/");
+      await signUp(email, password, name);
+      router.push("/");
     } catch (error) {
-       // An error occurred. Set error message to be displayed to user
-       if (error.message.includes("email-already")) {
+      // An error occurred. Set error message to be displayed to user
+      console.log(error);
+      if (error.message.includes("email-already")) {
         toast.error("Email Already In Use", {
           position: "top-right",
           autoClose: 3000,
@@ -81,17 +79,6 @@ const Signup = () => {
                 required=""
               />
               <ErrorMessage name="name" component="div" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="username">Username:</label>
-              <Field
-                type="text"
-                id="username"
-                placeholder="johndoe"
-                name="username"
-                required=""
-              />
-              <ErrorMessage name="username" component="div" />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email:</label>

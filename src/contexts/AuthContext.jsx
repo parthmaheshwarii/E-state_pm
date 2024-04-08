@@ -1,39 +1,53 @@
-import { auth } from "@/firebase";
+"use client";
+import { auth, db } from "@/firebase";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import React, { createContext, useContext, useState } from "react";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext({
-  currentUser: {},
+  currentUser: null,
   getUser: () => {},
-  login: () => {},
+  login: async () => {},
   signOut: () => {},
-  signUp: () => {},
-  isAdmin: () => {},
+  signUp: async () => {},
+  isAdmin: async () => {},
 });
 export function useAuth() {
   return useContext(AuthContext);
 }
 const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  function login(email, password) {
+  const login = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
-  }
+  };
 
   function signOut() {
     return auth.signOut();
   }
 
-  function signUp(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+  async function signUp(email, password, name) {
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const docRef = doc(db, "users", user.uid);
+    await setDoc(docRef, {
+      name,
+      email,
+      bookings: [],
+      repairs: [],
+    });
   }
 
   function getUser() {
+    console.log("in getUser", auth.currentUser);
     return auth.currentUser;
   }
   useEffect(() => {

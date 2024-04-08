@@ -7,6 +7,8 @@ import Head from "next/head";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "material-symbols";
+import AuthProvider from "@/contexts/AuthContext";
+import DataProvider from "@/contexts/DataContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,10 +27,14 @@ export default function RootLayout({ children }) {
         />
       </Head>
       <body className={inter.className}>
-        <ToastContainer />
-        <Header />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <DataProvider>
+            <ToastContainer />
+            <Header />
+            {children}
+            <Footer />
+          </DataProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import "./page.css";
 import Link from "next/link";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -20,7 +20,13 @@ const Login = () => {
     const user = result.user;
     return user;
   }
-  const { login, currentUser } = useAuth();
+  const { login, getUser } = useAuth();
+  useEffect(() => {
+    console.log(getUser());
+    if (getUser()) {
+      router.push("/");
+    }
+  }, []);
   async function handleLogInWithGoogle() {
     const user = await logInWithGoogle();
     // setUser(user);
@@ -62,24 +68,26 @@ const Login = () => {
       .required("Required"),
     password_field: Yup.string().required("Required"),
   });
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     const { email_field, password_field } = values;
+    console.log("In onSubmit", values);
     try {
-      login(email_field, password_field)
+      await login(email_field, password_field);
       router.push("/");
-        toast.success("Logged in Successfully", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+      toast.success("Logged in Successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log(error);
       toast.error(error.message, {
         position: "top-right",
         autoClose: 3000,
@@ -89,7 +97,7 @@ const Login = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-      }); 
+      });
     }
   };
   return (
