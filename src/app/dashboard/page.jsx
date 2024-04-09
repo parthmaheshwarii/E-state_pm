@@ -328,17 +328,17 @@ const Dashboard = () => {
                                 <div className="flex">
                                   <button
                                     onClick={() => {
-                                      onBookingAccept(bookingId);
+                                      onBookingAccept(b.id);
                                     }}
-                                    className=" m-2 bg-green-700 border rounded"
+                                    className="p-2 text-white flex-1 m-2 bg-green-700 border rounded"
                                   >
                                     Accept
                                   </button>
                                   <button
                                     onClick={() => {
-                                      onBookingReject(bookingId);
+                                      onBookingReject(b.id);
                                     }}
-                                    className="m-2 bg-red-700 border rounded"
+                                    className="p-2 text-white flex-1 m-2 bg-red-700 border rounded"
                                   >
                                     Reject
                                   </button>
@@ -436,7 +436,7 @@ const Dashboard = () => {
                                     onClick={() => {
                                       onRepairAccept(b.id);
                                     }}
-                                    className=" m-2 bg-green-700 border rounded"
+                                    className="p-2 text-white flex-1 m-2 bg-green-700 border rounded"
                                   >
                                     Accept
                                   </button>
@@ -444,7 +444,7 @@ const Dashboard = () => {
                                     onClick={() => {
                                       onRepairReject(b.id);
                                     }}
-                                    className="m-2 bg-red-700 border rounded"
+                                    className="p-2 text-white flex-1 m-2 bg-red-700 border rounded"
                                   >
                                     Reject
                                   </button>
