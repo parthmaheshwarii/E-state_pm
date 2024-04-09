@@ -34,13 +34,19 @@ const DataProvider = ({ children }) => {
               userData.bookings.map((b) => getDoc(doc(db, `bookings/${b}`)))
             );
 
-            const userBookings = userBookingsDocSnapshots.map((d) => d.data());
+            const userBookings = userBookingsDocSnapshots.map((d) => ({
+              ...d.data(),
+              id: d.id,
+            }));
             setBookings(userBookings);
             const userRepairsDocSnapshots = await Promise.all(
               userData.repairs.map((b) => getDoc(doc(db, `repairs/${b}`)))
             );
 
-            const userRepairs = userRepairsDocSnapshots.map((d) => d.data());
+            const userRepairs = userRepairsDocSnapshots.map((d) => ({
+              ...d.data(),
+              id: d.id,
+            }));
             setRepairs(userRepairs);
             console.log("userRepairs", userRepairs);
           }
@@ -56,7 +62,10 @@ const DataProvider = ({ children }) => {
         onSnapshot(collection(db, `repairs`), (snapshot) => {
           const allRepairs = [];
           snapshot.docs.forEach(async (doc) => {
-            allRepairs.push(doc.data());
+            allRepairs.push({
+              ...doc.data(),
+              id: doc.id,
+            });
           });
           setRepairs(allRepairs);
         });
