@@ -14,7 +14,7 @@ import {
 import { db } from "@/firebase";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Repair = () => {
   const validationSchema = Yup.object({});
   const initialValues = {
     quaterNo: "",
@@ -299,4 +299,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Repair;

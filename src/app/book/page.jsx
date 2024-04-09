@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import { db } from "@/firebase";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Book = () => {
   const validationSchema = Yup.object({
     collegeId: Yup.string().required("Required"),
   });
@@ -264,4 +264,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Book;

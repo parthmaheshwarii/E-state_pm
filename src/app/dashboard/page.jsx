@@ -14,7 +14,7 @@ import {
 import { db } from "@/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { useData } from "@/contexts/DataContext";
-const page = () => {
+const Dashboard = () => {
   const { bookings, repairs } = useData();
   const { isAdmin } = useAuth();
   function deleteBooking(bookingId) {}
@@ -420,4 +420,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Dashboard;
