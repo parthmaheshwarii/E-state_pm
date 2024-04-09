@@ -4,6 +4,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Disclosure, Tab } from "@headlessui/react";
 import { toast } from "react-toastify";
+import emailjs from "emailjs-com";
+
 import {
   collection,
   doc,
@@ -24,6 +26,30 @@ const Dashboard = () => {
 
   async function onBookingAccept(bookingId) {
     await updateDoc(doc(db, `bookings/${bookingId}`), { status: "Accepted" });
+    // emailjs
+    //   .sendForm(
+    //     "service_yoohhm2",
+    //     "template_wouyxmq",
+    //     formRef.current.target,
+    //     "joFrbCbtiZNYGPbYS"
+    //   )
+    //   .then(
+    //     (result) => {
+    //       toast.success(`Mail sent successfully!`, {
+    //         position: "top-right",
+    //         autoClose: 3000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //         theme: "light",
+    //       }); //This is if you still want the Contact to reload (since e.preventDefault() cancelled that behavior)
+    //     },
+    //     (error) => {
+    //       console.log(error.text);
+    //     }
+    //   );
     toast.success(`Booking Accepted`, {
       position: "top-right",
       autoClose: 3000,

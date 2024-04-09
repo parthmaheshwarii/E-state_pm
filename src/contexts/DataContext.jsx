@@ -55,7 +55,10 @@ const DataProvider = ({ children }) => {
         onSnapshot(collection(db, `bookings`), (snapshot) => {
           const allBookings = [];
           snapshot.docs.forEach(async (doc) => {
-            allBookings.push(doc.data());
+            allBookings.push({
+              ...doc.data(),
+              id: doc.id,
+            });
           });
           setBookings(allBookings);
         });
