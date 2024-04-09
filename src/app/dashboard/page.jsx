@@ -398,6 +398,26 @@ const Dashboard = () => {
                                   </button>
                                 )}
                               </div>
+                              {b.status == "Pending" && isAdmin && (
+                                <div className="flex">
+                                  <button
+                                    onClick={() => {
+                                      onRepairAccept(b.id);
+                                    }}
+                                    className=" m-2 bg-green-700 border rounded"
+                                  >
+                                    Accept
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      onRepairReject(b.id);
+                                    }}
+                                    className="m-2 bg-red-700 border rounded"
+                                  >
+                                    Reject
+                                  </button>
+                                </div>
+                              )}
                             </Disclosure.Panel>
                           </>
                         )}

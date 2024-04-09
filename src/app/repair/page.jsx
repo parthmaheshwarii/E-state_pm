@@ -66,7 +66,7 @@ const Repair = () => {
         const userDoc = doc(db, `users/${currentUser.uid}`);
         await updateDoc(userDoc, { repairs: arrayUnion(refDoc.id) });
         router.push("/dashboard");
-        toast.success(`Booking created successfully!`, {
+        toast.success(`Repair requested successfully!`, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
