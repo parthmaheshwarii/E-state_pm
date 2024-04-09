@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Disclosure, Tab } from "@headlessui/react";
+import { toast } from "react-toastify";
 import {
   collection,
   doc,
@@ -10,19 +11,49 @@ import {
   getDocs,
   onSnapshot,
   query,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { useData } from "@/contexts/DataContext";
 const Dashboard = () => {
   const { bookings, repairs } = useData();
-  const { isAdmin } = useAuth();
+  const { isAdmin, signOut } = useAuth();
   function deleteBooking(bookingId) {}
   function deleteRepair(repairId) {}
-  function onBookingAccept(bookingId) {}
-  function onBookingReject(bookingId) {}
-  function onRepairAccept(bookingId) {}
-  function onRepairReject(bookingId) {}
+
+  async function onBookingAccept(bookingId) {
+    await updateDoc(doc(db, `bookings/${bookingId}`), { status: "Accepted" });
+    toast.success(`Booking Accepted`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
+  async function onBookingReject(bookingId) {
+    await updateDoc(doc(db, `bookings/${bookingId}`), { status: "Rejected" });
+    toast.success(`Booking Rejected`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
+  async function onRepairAccept(bookingId) {
+    await updateDoc(doc(db, `repairs/${bookingId}`), { status: "Accepted" });
+  }
+  async function onRepairReject(bookingId) {
+    await updateDoc(doc(db, `repairs/${bookingId}`), { status: "Rejected" });
+  }
   return (
     <div className="bg-orange-100 min-h-screen">
       {/* <div className="fixed bg-white text-blue-800 px-10 py-1 z-10 w-full">
@@ -120,30 +151,9 @@ const Dashboard = () => {
             <Tab
               as="div"
               className="inline-block text-gray-600 hover:text-black my-4 w-full focus:outline-none cursor-pointer"
-            >
-              <span className="material-symbols-outlined float-left pr-2">
-                face
-              </span>
-              Profile
-              <span className="material-symbols-outlined float-right">
-                keyboard_arrow_right
-              </span>
-            </Tab>
-            <Tab
-              as="div"
-              className="inline-block text-gray-600 hover:text-black my-4 w-full focus:outline-none cursor-pointer"
-            >
-              <span className="material-symbols-outlined float-left pr-2">
-                settings
-              </span>
-              Settings
-              <span className="material-symbols-outlined float-right">
-                keyboard_arrow_right
-              </span>
-            </Tab>
-            <Tab
-              as="div"
-              className="inline-block text-gray-600 hover:text-black my-4 w-full focus:outline-none cursor-pointer"
+              onClick={() => {
+                signOut();
+              }}
             >
               <span className="material-symbols-outlined float-left pr-2">
                 power_settings_new
@@ -260,6 +270,7 @@ const Dashboard = () => {
                             <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
                               <div className="">
                                 <p>Location: {b.location}</p>
+                                <p>Phone: {b.phone}</p>
                                 <p>CollegeID: {b.collegeId}</p>
                                 <p>Designation: {b.designation}</p>
                                 <p>To Date: {b.toDate}</p>
@@ -364,6 +375,7 @@ const Dashboard = () => {
                             <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
                               <div className="">
                                 <p>Quarter No. {b.quarterNo}</p>
+                                <p>Phone {b.phone}</p>
                                 <p>Quarter Period {b.period}</p>
                                 <p>Location: {b.location}</p>
                                 <p>Service: {b.service}</p>
@@ -397,20 +409,6 @@ const Dashboard = () => {
                     </div>
                   )}
                 </ul>
-              </div>
-            </div>
-          </Tab.Panel>
-          <Tab.Panel className="w-10/12">
-            <div className="flex flex-row min-h-64 mt-6">
-              <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
-                a
-              </div>
-            </div>
-          </Tab.Panel>
-          <Tab.Panel className="w-10/12">
-            <div className="flex flex-row min-h-64 mt-6">
-              <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
-                a
               </div>
             </div>
           </Tab.Panel>
