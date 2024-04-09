@@ -16,7 +16,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useData } from "@/contexts/DataContext";
 const page = () => {
   const { bookings, repairs } = useData();
-
+  const { isAdmin } = useAuth();
+  function deleteBooking(bookingId) {}
+  function deleteRepair(repairId) {}
+  function onBookingAccept(bookingId) {}
+  function onBookingReject(bookingId) {}
+  function onRepairAccept(bookingId) {}
+  function onRepairReject(bookingId) {}
   return (
     <div className="bg-orange-100 min-h-screen">
       {/* <div className="fixed bg-white text-blue-800 px-10 py-1 z-10 w-full">
@@ -50,21 +56,23 @@ const page = () => {
       <Tab.Group as="div" className="flex flex-row pt-24 px-10 pb-4">
         <Tab.List as="div" className="w-2/12 mr-6 ">
           <div className="bg-white rounded-xl shadow-lg mb-6 px-3 py-4">
-            <Tab
-              as="div"
-              className="inline-block text-gray-600 hover:text-black my-4 w-full  focus:outline-none cursor-pointer"
-            >
-              <>
-                <span className="material-symbols-outlined float-left pr-2">
-                  dashboard
-                </span>
-                Home
-                {/* <span className="material-symbols-outlined">arrow_drop_down</span> */}
-                <span className="material-symbols-outlined float-right ">
-                  chevron_right
-                </span>
-              </>
-            </Tab>
+            {isAdmin && (
+              <Tab
+                as="div"
+                className="inline-block text-gray-600 hover:text-black my-4 w-full  focus:outline-none cursor-pointer"
+              >
+                <>
+                  <span className="material-symbols-outlined float-left pr-2">
+                    dashboard
+                  </span>
+                  Home
+                  {/* <span className="material-symbols-outlined">arrow_drop_down</span> */}
+                  <span className="material-symbols-outlined float-right ">
+                    chevron_right
+                  </span>
+                </>
+              </Tab>
+            )}
             <Tab
               as="div"
               className="inline-block text-gray-600 hover:text-black my-4 w-full  focus:outline-none cursor-pointer"
@@ -148,231 +156,259 @@ const page = () => {
           </div>
         </Tab.List>
         <Tab.Panels className="w-full">
-          <Tab.Panel className="w-10/12">
-            <div className="flex flex-row">
-              <div
-                className="bg-no-repeat bg-red-200 border border-red-300 rounded-xl w-7/12 mr-2 p-6"
-                style={{
-                  backgroundImage:
-                    "url(https://previews.dropbox.com/p/thumb/AAvyFru8elv-S19NMGkQcztLLpDd6Y6VVVMqKhwISfNEpqV59iR5sJaPD4VTrz8ExV7WU9ryYPIUW8Gk2JmEm03OLBE2zAeQ3i7sjFx80O-7skVlsmlm0qRT0n7z9t07jU_E9KafA9l4rz68MsaZPazbDKBdcvEEEQPPc3TmZDsIhes1U-Z0YsH0uc2RSqEb0b83A1GNRo86e-8TbEoNqyX0gxBG-14Tawn0sZWLo5Iv96X-x10kVauME-Mc9HGS5G4h_26P2oHhiZ3SEgj6jW0KlEnsh2H_yTego0grbhdcN1Yjd_rLpyHUt5XhXHJwoqyJ_ylwvZD9-dRLgi_fM_7j/p.png?fv_content=true&size_mode=5)",
-                  backgroundPosition: "90% center",
-                }}
-              >
-                <p className="text-3xl text-indigo-900">
-                  <strong>Bookings Pending</strong>
-                </p>
-                <span className="bg-red-300 text-xl text-white inline-block rounded-full mt-12 px-8 py-2">
-                  <strong>5</strong>
-                </span>
-              </div>
-              <div
-                className="bg-no-repeat bg-orange-200 border border-orange-300 rounded-xl w-5/12 ml-2 p-6"
-                style={{
-                  backgroundImage:
-                    "url(https://previews.dropbox.com/p/thumb/AAuwpqWfUgs9aC5lRoM_f-yi7OPV4txbpW1makBEj5l21sDbEGYsrC9sb6bwUFXTSsekeka5xb7_IHCdyM4p9XCUaoUjpaTSlKK99S_k4L5PIspjqKkiWoaUYiAeQIdnaUvZJlgAGVUEJoy-1PA9i6Jj0GHQTrF_h9MVEnCyPQ-kg4_p7kZ8Yk0TMTL7XDx4jGJFkz75geOdOklKT3GqY9U9JtxxvRRyo1Un8hOObbWQBS1eYE-MowAI5rNqHCE_e-44yXKY6AKJocLPXz_U4xp87K4mVGehFKC6dgk_i5Ur7gspuD7gRBDvd0sanJ9Ybr_6s2hZhrpad-2WFwWqSNkh/p.png?fv_content=true&size_mode=5)",
-                  backgroundPosition: "100% 40%",
-                }}
-              >
-                <p className="text-3xl text-indigo-900">
-                  <strong>Repairs Pending</strong>
-                </p>
-                <span className="bg-red-300 text-xl text-white inline-block rounded-full mt-12 px-8 py-2">
-                  <strong>2</strong>
-                </span>
-                {/* <a
+          {isAdmin && (
+            <Tab.Panel className="w-10/12">
+              <div className="flex flex-row">
+                <div
+                  className="bg-no-repeat bg-red-200 border border-red-300 rounded-xl w-7/12 mr-2 p-6"
+                  style={{
+                    backgroundImage:
+                      "url(https://previews.dropbox.com/p/thumb/AAvyFru8elv-S19NMGkQcztLLpDd6Y6VVVMqKhwISfNEpqV59iR5sJaPD4VTrz8ExV7WU9ryYPIUW8Gk2JmEm03OLBE2zAeQ3i7sjFx80O-7skVlsmlm0qRT0n7z9t07jU_E9KafA9l4rz68MsaZPazbDKBdcvEEEQPPc3TmZDsIhes1U-Z0YsH0uc2RSqEb0b83A1GNRo86e-8TbEoNqyX0gxBG-14Tawn0sZWLo5Iv96X-x10kVauME-Mc9HGS5G4h_26P2oHhiZ3SEgj6jW0KlEnsh2H_yTego0grbhdcN1Yjd_rLpyHUt5XhXHJwoqyJ_ylwvZD9-dRLgi_fM_7j/p.png?fv_content=true&size_mode=5)",
+                    backgroundPosition: "90% center",
+                  }}
+                >
+                  <p className="text-3xl text-indigo-900">
+                    <strong>Bookings Pending</strong>
+                  </p>
+                  <span className="bg-red-300 text-xl text-white inline-block rounded-full mt-12 px-8 py-2">
+                    <strong>5</strong>
+                  </span>
+                </div>
+                <div
+                  className="bg-no-repeat bg-orange-200 border border-orange-300 rounded-xl w-5/12 ml-2 p-6"
+                  style={{
+                    backgroundImage:
+                      "url(https://previews.dropbox.com/p/thumb/AAuwpqWfUgs9aC5lRoM_f-yi7OPV4txbpW1makBEj5l21sDbEGYsrC9sb6bwUFXTSsekeka5xb7_IHCdyM4p9XCUaoUjpaTSlKK99S_k4L5PIspjqKkiWoaUYiAeQIdnaUvZJlgAGVUEJoy-1PA9i6Jj0GHQTrF_h9MVEnCyPQ-kg4_p7kZ8Yk0TMTL7XDx4jGJFkz75geOdOklKT3GqY9U9JtxxvRRyo1Un8hOObbWQBS1eYE-MowAI5rNqHCE_e-44yXKY6AKJocLPXz_U4xp87K4mVGehFKC6dgk_i5Ur7gspuD7gRBDvd0sanJ9Ybr_6s2hZhrpad-2WFwWqSNkh/p.png?fv_content=true&size_mode=5)",
+                    backgroundPosition: "100% 40%",
+                  }}
+                >
+                  <p className="text-3xl text-indigo-900">
+                    <strong>Repairs Pending</strong>
+                  </p>
+                  <span className="bg-red-300 text-xl text-white inline-block rounded-full mt-12 px-8 py-2">
+                    <strong>2</strong>
+                  </span>
+                  {/* <a
                   href=""
                   className="bg-orange-300 text-xl text-white underline hover:no-underline inline-block rounded-full mt-12 px-8 py-2"
                 >
                   <strong>See all</strong>
                 </a> */}
+                </div>
               </div>
-            </div>
-            <div className="flex flex-row h-64 mt-6">
-              <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-4/12">
-                a
+              <div className="flex flex-row h-64 mt-6">
+                <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-4/12">
+                  a
+                </div>
+                <div className="bg-white rounded-xl shadow-lg mx-6 px-6 py-4 w-4/12">
+                  b
+                </div>
+                <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-4/12">
+                  c
+                </div>
               </div>
-              <div className="bg-white rounded-xl shadow-lg mx-6 px-6 py-4 w-4/12">
-                b
-              </div>
-              <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-4/12">
-                c
-              </div>
-            </div>
-          </Tab.Panel>
-          <Tab.Panel className="w-10/12">
-            <div className="flex flex-row mt-6">
-              <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
-                <ul className="bg-white shadow overflow-hidden sm:rounded-md max-w-sm mx-auto mt-16">
-                  {bookings.map((b, i) => (
-                    <Disclosure as="li" key={i}>
-                      {({ open }) => (
-                        <>
-                          <Disclosure.Button
-                            as="div"
-                            className="px-4 py-5 sm:px-6"
-                          >
-                            <div className="flex items-center justify-between">
-                              <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                {b.name}
-                              </h3>
-                              <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                                {b.bookingBy}
-                              </p>
-                            </div>
-                            <div className="mt-4 flex items-center justify-between">
-                              <p className="text-sm font-medium text-gray-500">
-                                Status:{" "}
-                                <span className="text-green-600">
-                                  {b.status}
-                                </span>
-                              </p>
-                              <span
-                                className={`${
-                                  open ? "rotate-180 transform" : ""
-                                } h-5 w-5 text-purple-500 material-symbols-outlined float-right`}
-                              >
-                                keyboard_arrow_up
-                              </span>
-                            </div>
-                          </Disclosure.Button>
-                          <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
-                            {b.message}
-                          </Disclosure.Panel>
-                        </>
-                      )}
-                    </Disclosure>
-                  ))}
+            </Tab.Panel>
+          )}
 
-                  {/* <Disclosure as={"li"} className="border-t border-gray-200">
-                    {({ open }) => (
-                      <>
-                        <Disclosure.Button
-                          as="div"
-                          className="px-4 py-5 sm:px-6"
-                        >
-                          <div className="flex items-center justify-between">
-                            <h3 className="text-lg leading-6 font-medium text-gray-900">
-                              Item 2
-                            </h3>
-                            <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                              Description for Item 2
-                            </p>
-                          </div>
-                          <div className="mt-4 flex items-center justify-between">
-                            <p className="text-sm font-medium text-gray-500">
-                              Status:{" "}
-                              <span className="text-red-600">Inactive</span>
-                            </p>
-                            <span
-                              className={`${
-                                open ? "rotate-180 transform" : ""
-                              } h-5 w-5 text-purple-500 material-symbols-outlined float-right`}
+          <Tab.Panel className="w-10/12">
+            <div className="flex flex-row min-h-64 mt-6">
+              <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
+                <h2 className="text-2xl text-center">Bookings</h2>
+
+                <ul className="bg-white shadow overflow-hidden sm:rounded-md max-w-sm mx-auto mt-16">
+                  {bookings.length ? (
+                    bookings.map((b, i) => (
+                      <Disclosure as="li" key={i}>
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button
+                              as="div"
+                              className="px-4 py-5 sm:px-6"
                             >
-                              keyboard_arrow_up
-                            </span>
-                          </div>
-                        </Disclosure.Button>
-                        <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
-                          If you're unhappy with your purchase for any reason,
-                          email us within 90 days and we'll refund you in full,
-                          no questions asked.
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
-                  <Disclosure as="li" className="border-t border-gray-200">
-                    {({ open }) => (
-                      <>
-                        <Disclosure.Button
-                          as="div"
-                          className="px-4 py-5 sm:px-6"
-                        >
-                          <div className="flex items-center justify-between">
-                            <h3 className="text-lg leading-6 font-medium text-gray-900">
-                              Item 3
-                            </h3>
-                            <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                              Description for Item 3
-                            </p>
-                          </div>
-                          <div className="mt-4 flex items-center justify-between">
-                            <p className="text-sm font-medium text-gray-500">
-                              Status:{" "}
-                              <span className="text-yellow-600">Pending</span>
-                            </p>
-                            <span
-                              className={`${
-                                open ? "rotate-180 transform" : ""
-                              } h-5 w-5 text-purple-500 material-symbols-outlined float-right`}
-                            >
-                              keyboard_arrow_up
-                            </span>
-                          </div>
-                        </Disclosure.Button>
-                        <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
-                          If you're unhappy with your purchase for any reason,
-                          email us within 90 days and we'll refund you in full,
-                          no questions asked.
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure> */}
+                              <div className="flex items-center justify-between">
+                                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                                  {b.name}
+                                </h3>
+                                <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                                  {b.bookingBy}
+                                </p>
+                              </div>
+                              <div className="mt-4 flex items-center justify-between">
+                                <p className="text-sm font-medium text-gray-500">
+                                  Status:{" "}
+                                  <span
+                                    className={
+                                      b.status === "Accepted"
+                                        ? "text-green-600"
+                                        : b.status == "Rejected"
+                                        ? "text-red-600"
+                                        : "text-yellow-600"
+                                    }
+                                  >
+                                    {b.status}
+                                  </span>
+                                </p>
+                                <span
+                                  className={`${
+                                    open ? "rotate-180 transform" : ""
+                                  } h-5 w-5 text-purple-500 material-symbols-outlined float-right hover:cursor-pointer`}
+                                >
+                                  keyboard_arrow_up
+                                </span>
+                              </div>
+                            </Disclosure.Button>
+                            <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+                              <div className="">
+                                <p>Location: {b.location}</p>
+                                <p>CollegeID: {b.collegeId}</p>
+                                <p>Designation: {b.designation}</p>
+                                <p>To Date: {b.toDate}</p>
+                                <p>From Date: {b.fromDate}</p>
+                                <p>Time: {b.timeRange}</p>
+                              </div>
+                              <div className="flex">
+                                <p>{b.message}</p>
+                                {b.status == "Pending" && !isAdmin && (
+                                  <button
+                                    onClick={() => {
+                                      deleteBooking(b.id);
+                                    }}
+                                    className="px-8"
+                                  >
+                                    <span className="material-symbols-outlined text-red-700 float-right">
+                                      delete
+                                    </span>
+                                  </button>
+                                )}
+                              </div>
+                              {b.status == "Pending" && isAdmin && (
+                                <div className="flex">
+                                  <button
+                                    onClick={() => {
+                                      onBookingAccept(bookingId);
+                                    }}
+                                    className=" m-2 bg-green-700 border rounded"
+                                  >
+                                    Accept
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      onBookingReject(bookingId);
+                                    }}
+                                    className="m-2 bg-red-700 border rounded"
+                                  >
+                                    Reject
+                                  </button>
+                                </div>
+                              )}
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
+                    ))
+                  ) : (
+                    <div className="flex flex-1 justify-center items-center p-20">
+                      No Bookings
+                    </div>
+                  )}
                 </ul>
               </div>
             </div>
           </Tab.Panel>
           <Tab.Panel className="w-10/12">
-            <div className="flex flex-row h-64 mt-6">
+            <div className="flex flex-row min-h-64 mt-6">
               <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
-                {repairs.map((b, i) => (
-                  <Disclosure as="li" key={i}>
-                    {({ open }) => (
-                      <>
-                        <Disclosure.Button
-                          as="div"
-                          className="px-4 py-5 sm:px-6"
-                        >
-                          <div className="flex items-center justify-between">
-                            <h3 className="text-lg leading-6 font-medium text-gray-900">
-                              {b.name}
-                            </h3>
-                            <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                              {b.requestBy}
-                            </p>
-                          </div>
-                          <div className="mt-4 flex items-center justify-between">
-                            <p className="text-sm font-medium text-gray-500">
-                              Status:{" "}
-                              <span className="text-green-600">{b.status}</span>
-                            </p>
-                            <span
-                              className={`${
-                                open ? "rotate-180 transform" : ""
-                              } h-5 w-5 text-purple-500 material-symbols-outlined float-right`}
+                <h2 className="text-2xl text-center"> Repairs</h2>
+                <ul className="bg-white shadow overflow-hidden sm:rounded-md max-w-sm mx-auto mt-16">
+                  {repairs.length ? (
+                    repairs.map((b, i) => (
+                      <Disclosure as="li" key={i}>
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button
+                              as="div"
+                              className="px-4 py-5 sm:px-6"
                             >
-                              keyboard_arrow_up
-                            </span>
-                          </div>
-                        </Disclosure.Button>
-                        <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
-                          {b.message}
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
-                ))}
+                              <div className="flex items-center justify-between">
+                                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                                  {b.name}
+                                </h3>
+                                <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                                  {b.requestBy}
+                                </p>
+                              </div>
+                              <div className="mt-4 flex items-center justify-between">
+                                <p className="text-sm font-medium text-gray-500">
+                                  Status:{" "}
+                                  <span
+                                    className={
+                                      b.status === "Accepted"
+                                        ? "text-green-600"
+                                        : b.status == "Rejected"
+                                        ? "text-red-600"
+                                        : "text-yellow-600"
+                                    }
+                                  >
+                                    {b.status}
+                                  </span>
+                                </p>
+                                <span
+                                  className={`${
+                                    open ? "rotate-180 transform" : ""
+                                  } h-5 w-5 text-purple-500 material-symbols-outlined hover:cursor-pointer float-right`}
+                                >
+                                  keyboard_arrow_up
+                                </span>
+                              </div>
+                            </Disclosure.Button>
+                            <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+                              <div className="">
+                                <p>Quarter No. {b.quarterNo}</p>
+                                <p>Quarter Period {b.period}</p>
+                                <p>Location: {b.location}</p>
+                                <p>Service: {b.service}</p>
+                                <p>Employee Code: {b.employeeCode}</p>
+                                <p>Designation: {b.designation}</p>
+                                <p>Department: {b.department}</p>
+                              </div>
+                              <div className="flex">
+                                <p>{b.message}</p>
+                                {b.status == "Pending" && !isAdmin && (
+                                  <button
+                                    onClick={() => {
+                                      deleteRepair(b.id);
+                                    }}
+                                    className="px-8"
+                                  >
+                                    <span className="material-symbols-outlined text-red-700 float-right">
+                                      delete
+                                    </span>
+                                  </button>
+                                )}
+                              </div>
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
+                    ))
+                  ) : (
+                    <div className="flex flex-1 justify-center items-center h-full">
+                      No Repair Requests
+                    </div>
+                  )}
+                </ul>
               </div>
             </div>
           </Tab.Panel>
           <Tab.Panel className="w-10/12">
-            <div className="flex flex-row h-64 mt-6">
+            <div className="flex flex-row min-h-64 mt-6">
               <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
                 a
               </div>
             </div>
           </Tab.Panel>
           <Tab.Panel className="w-10/12">
-            <div className="flex flex-row h-64 mt-6">
+            <div className="flex flex-row min-h-64 mt-6">
               <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
                 a
               </div>

@@ -245,7 +245,7 @@ const page = () => {
               id="message"
               name="message"
               rows={4}
-              placeholder="Enter any additional information"
+              placeholder="Specify why it is required"
               defaultValue={""}
             />
           </div>

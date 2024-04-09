@@ -14,7 +14,7 @@ export const AuthContext = createContext({
   login: async () => {},
   signOut: () => {},
   signUp: async () => {},
-  isAdmin: async () => {},
+  isAdmin: false,
 });
 export function useAuth() {
   return useContext(AuthContext);
@@ -22,6 +22,7 @@ export function useAuth() {
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const login = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
@@ -53,21 +54,22 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      if (auth.currentUser) {
+        auth.currentUser.getIdTokenResult().then((idTokenResult) => {
+          if (!!idTokenResult.claims.admin) {
+            setIsAdmin(true);
+          }
+        });
+      } else {
+        setIsAdmin(false);
+      }
+
       setLoading(false);
     });
 
     return unsubscribe;
   }, []);
 
-  function isAdmin() {
-    return auth.currentUser.getIdTokenResult().then((idTokenResult) => {
-      if (!!idTokenResult.claims.admin) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  }
   const value = {
     currentUser,
     getUser,

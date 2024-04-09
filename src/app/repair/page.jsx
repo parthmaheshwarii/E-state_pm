@@ -4,12 +4,18 @@ import React from "react";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import { useAuth } from "@/contexts/AuthContext";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "@/firebase";
+import { useRouter } from "next/navigation";
 
 const page = () => {
-  const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email address").required("Required"),
-    userId: Yup.string().required("Required"),
-  });
+  const validationSchema = Yup.object({});
   const initialValues = {
     quaterNo: "",
     location: "",
@@ -23,16 +29,35 @@ const page = () => {
     service: "",
     message: "",
   };
+  const router = useRouter();
+  const { currentUser } = useAuth();
   async function onSubmit(values) {
-    const { name, phone, date, time, message, service } = values;
+    const {
+      name,
+      phone,
+      date,
+      message,
+      service,
+      quaterNo,
+      location,
+      period,
+      employeeCode,
+      designation,
+      department,
+    } = values;
     if (currentUser) {
       try {
-        const refDoc = await addDoc(collection(db, "bookings"), {
+        const refDoc = await addDoc(collection(db, "repairs"), {
+          quaterNo,
+          location,
+          period,
+          employeeCode,
+          designation,
+          department,
           requestBy: currentUser.email,
-          name: name,
+          name,
           phone,
           date,
-          time,
           message,
           service,
           status: "Pending",
@@ -226,26 +251,11 @@ const page = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 font-bold mb-2"
-              htmlFor="time"
-            >
-              Time
-            </label>
-            <Field
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="time"
-              name="time"
-              type="time"
-              placeholder="Select a time"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 font-bold mb-2"
               htmlFor="service"
             >
               Service
             </label>
-            <Form
+            <Field
               as={"select"}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="service"
@@ -256,7 +266,7 @@ const page = () => {
               <option value="electric">Electric Connection</option>
               <option value="seawage">Sewerage Line</option>
               <option value="civil">Civil Work</option>
-            </Form>
+            </Field>
           </div>
           <div className="mb-4">
             <label
@@ -270,6 +280,7 @@ const page = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="message"
               rows={4}
+              name="message"
               placeholder="Enter any additional information"
               defaultValue={""}
             />

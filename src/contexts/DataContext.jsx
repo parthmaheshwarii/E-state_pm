@@ -20,13 +20,11 @@ export function useData() {
 const DataProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);
   const [repairs, setRepairs] = useState([]);
-  const { isAdmin } = useAuth();
+  const { isAdmin, currentUser } = useAuth();
 
   useEffect(() => {
-    (async () => {
-      const admin = await isAdmin();
-      console.log("isAdmin", admin);
-      if (!admin) {
+    if (currentUser?.uid) {
+      if (!isAdmin) {
         onSnapshot(
           doc(db, `users/${currentUser.uid}`),
           async (userDocSnapshot) => {
@@ -43,7 +41,7 @@ const DataProvider = ({ children }) => {
             );
 
             const userRepairs = userRepairsDocSnapshots.map((d) => d.data());
-            setBookings(userRepairs);
+            setRepairs(userRepairs);
             console.log("userRepairs", userRepairs);
           }
         );
@@ -56,8 +54,8 @@ const DataProvider = ({ children }) => {
           setBookings(allBookings);
         });
       }
-    })();
-  }, []);
+    }
+  }, [currentUser]);
   const value = { bookings, repairs };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };
