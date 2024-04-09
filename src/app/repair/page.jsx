@@ -15,7 +15,19 @@ import { db } from "@/firebase";
 import { useRouter } from "next/navigation";
 
 const Repair = () => {
-  const validationSchema = Yup.object({});
+  const validationSchema = Yup.object({
+    quaterNo: Yup.string().required("Required"),
+    location: Yup.string().required("Required"),
+    period: Yup.string().required("Required"),
+    name: Yup.string().required("Required"),
+    employeeCode: Yup.string().required("Required"),
+    designation: Yup.string().required("Required"),
+    department: Yup.string().required("Required"),
+    phone: Yup.string().required("Required"),
+    date: Yup.string().required("Required"),
+    service: Yup.string().required("Required"),
+    message: Yup.string().required("Required"),
+  });
   const initialValues = {
     quaterNo: "",
     location: "",

@@ -1,20 +1,52 @@
 "use client";
 import * as Yup from "yup";
-import React from "react";
+import React, { useRef } from "react";
 import { Field, Form, Formik } from "formik";
-
-const page = () => {
+import { toast } from "react-toastify";
+import emailjs from "emailjs-com";
+import { useRouter } from "next/navigation";
+const Contact = () => {
   const initialValues = {
-    email_field: "",
-    password_field: "",
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   };
   const validationSchema = Yup.object({
-    email_field: Yup.string()
-      .email("Invalid email address")
-      .required("Required"),
-    password_field: Yup.string().required("Required"),
+    email: Yup.string().email("Invalid email address").required("Required"),
+    subject: Yup.string().required("Required"),
+    name: Yup.string().required("Required"),
+    message: Yup.string().required("Required"),
   });
-  const onSubmit = async (values) => {};
+  const router = useRouter();
+  const formRef = useRef();
+  const onSubmit = async (values) => {
+    const { email, subject, name, message } = values;
+    emailjs
+      .sendForm(
+        "service_yoohhm2",
+        "template_wouyxmq",
+        formRef.current.target,
+        "joFrbCbtiZNYGPbYS"
+      )
+      .then(
+        (result) => {
+          toast.success(`Mail sent successfully!`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }); //This is if you still want the Contact to reload (since e.preventDefault() cancelled that behavior)
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <div className="my-6">
       <div className="grid sm:grid-cols-2 items-center gap-16 p-8 mx-auto max-w-4xl bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md text-[#333] font-[sans-serif]">
@@ -109,7 +141,7 @@ const page = () => {
           initialValues={initialValues}
           onSubmit={onSubmit}
         >
-          <Form className="ml-auo space-y-4">
+          <Form ref={formRef} className="ml-auo space-y-4">
             <Field
               type="text"
               placeholder="Name"
@@ -149,4 +181,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Contact;
