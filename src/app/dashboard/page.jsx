@@ -18,12 +18,18 @@ import {
 import { db } from "@/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { useData } from "@/contexts/DataContext";
+import { useRouter } from "next/navigation";
 const Dashboard = () => {
   const { bookings, repairs } = useData();
-  const { isAdmin, signOut } = useAuth();
+  const { isAdmin, signOut, currentUser } = useAuth();
   function deleteBooking(bookingId) {}
   function deleteRepair(repairId) {}
-
+  const router = useRouter();
+  useEffect(() => {
+    if (!currentUser) {
+      router.push("/");
+    }
+  }, [currentUser]);
   async function onBookingAccept(bookingId) {
     await updateDoc(doc(db, `bookings/${bookingId}`), { status: "Accepted" });
     // emailjs
