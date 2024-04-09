@@ -53,6 +53,13 @@ const DataProvider = ({ children }) => {
           });
           setBookings(allBookings);
         });
+        onSnapshot(collection(db, `repairs`), (snapshot) => {
+          const allRepairs = [];
+          snapshot.docs.forEach(async (doc) => {
+            allRepairs.push(doc.data());
+          });
+          setRepairs(allRepairs);
+        });
       }
     }
   }, [currentUser]);
