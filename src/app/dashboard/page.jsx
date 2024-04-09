@@ -27,7 +27,7 @@ const Dashboard = () => {
   const router = useRouter();
   useEffect(() => {
     if (!currentUser) {
-      router.push("/");
+      router.push("/login");
     }
   }, [currentUser]);
   async function onBookingAccept(bookingId) {
