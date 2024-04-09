@@ -196,7 +196,7 @@ const page = () => {
                 </a> */}
                 </div>
               </div>
-              <div className="flex flex-row h-64 mt-6">
+              {/* <div className="flex flex-row h-64 mt-6">
                 <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-4/12">
                   a
                 </div>
@@ -206,7 +206,7 @@ const page = () => {
                 <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-4/12">
                   c
                 </div>
-              </div>
+              </div> */}
             </Tab.Panel>
           )}
 
