@@ -22,11 +22,12 @@ const Contact = () => {
   const formRef = useRef();
   const onSubmit = async (values) => {
     const { email, subject, name, message } = values;
+    console.log(formRef.current);
     emailjs
       .sendForm(
         "service_yoohhm2",
         "template_wouyxmq",
-        formRef.current.target,
+        formRef.current,
         "joFrbCbtiZNYGPbYS"
       )
       .then(
@@ -169,7 +170,7 @@ const Contact = () => {
               defaultValue={""}
             />
             <button
-              type="button"
+              type="submit"
               className="text-white bg-[#007bff] hover:bg-blue-600 font-semibold rounded-md text-sm px-4 py-2.5 w-full"
             >
               Send
