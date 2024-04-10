@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import React, { useRef } from "react";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import { useRouter } from "next/navigation";
 const Contact = () => {
   const initialValues = {
@@ -22,12 +22,19 @@ const Contact = () => {
   const formRef = useRef();
   const onSubmit = async (values) => {
     const { email, subject, name, message } = values;
+    const templateParams = {
+      to_name: "Admin",
+      from_name: name,
+      subject,
+      email,
+      message,
+    };
     console.log(formRef.current);
     emailjs
       .sendForm(
         "service_yoohhm2",
         "template_wouyxmq",
-        formRef.current,
+        templateParams,
         "joFrbCbtiZNYGPbYS"
       )
       .then(
