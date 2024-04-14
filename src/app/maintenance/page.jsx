@@ -14,7 +14,7 @@ import {
 import { db } from "@/firebase";
 import { useRouter } from "next/navigation";
 
-const Repair = () => {
+const Maintenance = () => {
   const validationSchema = Yup.object({
     quaterNo: Yup.string().required("Required"),
     location: Yup.string().required("Required"),
@@ -78,7 +78,7 @@ const Repair = () => {
         const userDoc = doc(db, `users/${currentUser.uid}`);
         await updateDoc(userDoc, { repairs: arrayUnion(refDoc.id) });
         router.push("/dashboard");
-        toast.success(`Repair requested successfully!`, {
+        toast.success(`Maintenance requested successfully!`, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -116,7 +116,7 @@ const Repair = () => {
   return (
     <div className="max-w-md mx-auto my-10 bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
-        Request Repair
+        Request Maintenance
       </div>
       <Formik
         initialValues={initialValues}
@@ -302,7 +302,7 @@ const Repair = () => {
               className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Request Repair
+              Request Maintenance
             </button>
           </div>
         </Form>
@@ -311,4 +311,4 @@ const Repair = () => {
   );
 };
 
-export default Repair;
+export default Maintenance;

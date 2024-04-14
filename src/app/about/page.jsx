@@ -5,14 +5,14 @@ const page = () => {
     <>
       <div className="w-full relative flex flex-col justify-between  px-10 mx-auto xl:px-10 py-10 items-center mt-5 bg-white">
         <h2 className="mb-1 text-3xl font-extrabold leading-tight text-gray-900">
-          About the Estate Department of BIT Mesra, Ranchi
+          About the E-state Office of BIT Mesra, Ranchi
         </h2>
         <p className="mb-12 text-lg text-gray-500 text-center">
-          The Estate Department of BIT Mesra plays a pivotal role in the
-          management and maintenance of the college&apos;s land, buildings, and
-          facilities. With a multifaceted responsibility, the department ensures
-          the smooth functioning of various aspects integral to the
-          institution&apos;s infrastructure and operations.
+          The E-state Office of BIT Mesra plays a pivotal role in the management
+          and maintenance of the college&apos;s land, buildings, and facilities.
+          With a multifaceted responsibility, the department ensures the smooth
+          functioning of various aspects integral to the institution&apos;s
+          infrastructure and operations.
         </p>
         <div className="w-full">
           <div className="flex flex-col w-full mb-10 sm:flex-row">
@@ -29,8 +29,8 @@ const page = () => {
                     ------------
                   </p>
                   <p className="mb-2 text-gray-600">
-                    The Estate Department oversees the management of all land
-                    and buildings owned by the college. This includes regular
+                    The E-state Office oversees the management of all land and
+                    buildings owned by the college. This includes regular
                     maintenance, renovation, and construction projects to uphold
                     safety standards and enhance the campus environment. Whether
                     it&apos;s repairing structures, upgrading facilities, or
@@ -55,11 +55,11 @@ const page = () => {
                   </p>
                   <p className="mb-2 text-gray-600">
                     In addition to managing academic and administrative
-                    buildings, the Estate Department is responsible for
-                    overseeing the staff quarters where college faculty and
-                    staff reside. Ensuring the upkeep of these accommodations
-                    and addressing any issues promptly contributes to fostering
-                    a conducive living environment for the college personnel.
+                    buildings, the E-state Office is responsible for overseeing
+                    the staff quarters where college faculty and staff reside.
+                    Ensuring the upkeep of these accommodations and addressing
+                    any issues promptly contributes to fostering a conducive
+                    living environment for the college personnel.
                   </p>
                 </div>
               </div>
@@ -79,16 +79,16 @@ const page = () => {
                     ------------
                   </p>
                   <p className="mb-2 text-gray-600">
-                    The Estate Department facilitates the efficient use of
-                    college facilities by granting permissions for events and
-                    activities organized by staff and students. Whether its
-                    booking auditoriums, halls, or other event spaces, the
-                    department coordinates scheduling, logistics, and resource
-                    allocation to accommodate the diverse needs of the college
-                    community. By providing support for academic conferences,
-                    cultural events, seminars, and more, the department
-                    contributes significantly to enriching campus life and
-                    promoting community engagement.
+                    The E-state Office facilitates the efficient use of college
+                    facilities by granting permissions for events and activities
+                    organized by staff and students. Whether its booking
+                    auditoriums, halls, or other event spaces, the department
+                    coordinates scheduling, logistics, and resource allocation
+                    to accommodate the diverse needs of the college community.
+                    By providing support for academic conferences, cultural
+                    events, seminars, and more, the department contributes
+                    significantly to enriching campus life and promoting
+                    community engagement.
                   </p>
                 </div>
               </div>
@@ -108,7 +108,7 @@ const page = () => {
                   <p className="mb-2 text-gray-600">
                     <p>
                       <span className="font-bold">Service Excellence:</span> The
-                      Estate Department is committed to providing exceptional
+                      E-state Office is committed to providing exceptional
                       service to all stakeholders, ensuring their needs are met
                       promptly and efficiently.
                     </p>

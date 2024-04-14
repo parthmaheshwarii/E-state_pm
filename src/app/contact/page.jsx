@@ -7,7 +7,8 @@ import emailjs from "@emailjs/browser";
 import { useRouter } from "next/navigation";
 const Contact = () => {
   const initialValues = {
-    name: "",
+    to_name: "Admin",
+    from_name: "",
     email: "",
     subject: "",
     message: "",
@@ -15,13 +16,13 @@ const Contact = () => {
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email address").required("Required"),
     subject: Yup.string().required("Required"),
-    name: Yup.string().required("Required"),
+    from_name: Yup.string().required("Required"),
     message: Yup.string().required("Required"),
   });
   const router = useRouter();
   const formRef = useRef();
   const onSubmit = async (values) => {
-    const { email, subject, name, message } = values;
+    const { email, subject, from_name, message } = values;
     const templateParams = {
       to_name: "Admin",
       from_name: name,
@@ -34,7 +35,7 @@ const Contact = () => {
       .sendForm(
         "service_yoohhm2",
         "template_wouyxmq",
-        templateParams,
+        formRef.current,
         "joFrbCbtiZNYGPbYS"
       )
       .then(
@@ -51,7 +52,7 @@ const Contact = () => {
           }); //This is if you still want the Contact to reload (since e.preventDefault() cancelled that behavior)
         },
         (error) => {
-          console.log(error.text);
+          console.log(error);
         }
       );
   };
@@ -61,8 +62,8 @@ const Contact = () => {
         <div>
           <h1 className="text-3xl font-extrabold">Let&apos;s Talk</h1>
           <p className="text-sm text-gray-400 mt-3">
-            Estate Department, reach out we&apos;d love to hear about your
-            problem and provide help.
+            E-state Office, reach out we&apos;d love to hear about your problem
+            and provide help.
           </p>
           <div className="mt-12">
             <h2 className="text-lg font-extrabold">Email</h2>
@@ -152,9 +153,16 @@ const Contact = () => {
           <Form ref={formRef} className="ml-auo space-y-4">
             <Field
               type="text"
+              hidden
               placeholder="Name"
               className="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
-              name="name"
+              name="to_name"
+            />
+            <Field
+              type="text"
+              placeholder="Name"
+              className="w-full rounded-md py-2.5 px-4 border text-sm outline-[#007bff]"
+              name="from_name"
             />
             <Field
               type="email"

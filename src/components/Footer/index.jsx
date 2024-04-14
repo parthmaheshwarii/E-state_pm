@@ -29,7 +29,7 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footer-info">
-          <p>&copy; Estate Department</p>
+          <p>&copy; E-state Office</p>
           <p>Email: info@example.com</p>
           <p>Phone: +1234567890</p>
           <p>BIT Mesra College Campus,Mesra, Ranchi, Jharkhand 835215</p>

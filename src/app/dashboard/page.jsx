@@ -4,7 +4,6 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Disclosure, Tab } from "@headlessui/react";
 import { toast } from "react-toastify";
-import emailjs from "emailjs-com";
 
 import {
   collection,
@@ -158,7 +157,7 @@ const Dashboard = () => {
                 <span className="material-symbols-outlined float-left pr-2">
                   file_copy
                 </span>
-                Repairs
+                Maintenance
                 <span className="material-symbols-outlined float-right">
                   keyboard_arrow_right
                 </span>
@@ -225,7 +224,7 @@ const Dashboard = () => {
                   }}
                 >
                   <p className="text-3xl text-indigo-900">
-                    <strong>Repairs Pending</strong>
+                    <strong>Maintenance Pending</strong>
                   </p>
                   <span className="bg-red-300 text-xl text-white inline-block rounded-full mt-12 px-8 py-2">
                     <strong>2</strong>
@@ -361,7 +360,7 @@ const Dashboard = () => {
           <Tab.Panel className="w-10/12">
             <div className="flex flex-row min-h-64 mt-6">
               <div className="bg-white rounded-xl shadow-lg px-6 py-4 w-8/12">
-                <h2 className="text-2xl text-center"> Repairs</h2>
+                <h2 className="text-2xl text-center"> Maintenance</h2>
                 <ul className="bg-white shadow overflow-hidden sm:rounded-md max-w-sm mx-auto mt-16">
                   {repairs.length ? (
                     repairs.map((b, i) => (
@@ -457,7 +456,7 @@ const Dashboard = () => {
                     ))
                   ) : (
                     <div className="flex flex-1 justify-center items-center h-full">
-                      No Repair Requests
+                      No Maintenance Requests
                     </div>
                   )}
                 </ul>

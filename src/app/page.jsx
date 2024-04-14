@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <div className="container">
-          <h1>Welcome to the College Estate Department</h1>
+        <div className="container flex flex-col">
+          <h1 className="font-serif">Welcome to BIT&apos;s E-state Office</h1>
           <p>
             Explore our services for managing and maintaining our campus estate.
           </p>
@@ -46,13 +46,13 @@ export default function Home() {
                   width="400"
                 />
               </div>
-              <h3>Damage Repair Service</h3>
+              <h3>Maintenance</h3>
               <p>
                 Report damages and request repairs for campus buildings and
                 facilities.
               </p>
-              <Link href={"/repair"} className="service-button">
-                Request Repair
+              <Link href={"/maintenance"} className="service-button">
+                Request Maintenance
               </Link>
             </div>
           </div>
@@ -75,10 +75,10 @@ export default function Home() {
           <h2 className="text-3xl mx-auto my-5">Find Us</h2>
           <div className="landbuilding flex justify-center  p-5">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3078.7886798051395!2d85.4412176639987!3d23.4128987622601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sBIT%20Mesra%20College%20Campus%2CMesra!5e0!3m2!1sen!2sin!4v1712046493685!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d228.83444248004747!2d85.44130098570669!3d23.411681670282523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f4fb136481645f%3A0x5329e577e69491e5!2sConstruction%20Department!5e0!3m2!1sen!2sus!4v1713021329009!5m2!1sen!2sus"
               width="600"
               height="450"
-              className="border-0"
+              className="border-none"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"

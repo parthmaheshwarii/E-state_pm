@@ -227,9 +227,16 @@ const Book = () => {
               name="location"
             >
               <option value="">Select a location</option>
-              <option value="seminar">Seminar Hall</option>
-              <option value="class">Class Room</option>
-              <option value="auditorium">Hall/Auditorium</option>
+              <option value="conference">Conference Hall</option>
+              <option value="seminar1">Seminar Hall 1</option>
+              <option value="seminar2">Seminar Hall 2</option>
+              <option value="seminar3">Seminar Hall 3</option>
+              <option value="cathall">CAT Hall</option>
+              <option value="goldenjublie">Golden Jublie Hall</option>
+              <option value="community">Community Hall</option>
+              <option value="clubhouse">Club House</option>
+              <option value="gpbirlaauditorium">GP Birla Auditorium</option>
+              <option value="others">Others</option>
             </Field>
           </div>
           <div className="mb-4">
